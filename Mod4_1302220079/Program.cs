@@ -42,6 +42,63 @@
     }
 }
 
+public class PosisiKarakterGame
+{
+    public enum State { Tengkurap, Jongkok, Berdiri, Terbang };
+    public State currentState;
+
+    public PosisiKarakterGame()
+    {
+        currentState = State.Berdiri;
+        Console.WriteLine("Berdiri");
+    }
+
+    public void TombolW()
+    {
+        if (currentState == State.Tengkurap)
+        {
+            currentState = State.Jongkok;
+            Console.WriteLine("Jongkok");
+        } else if (currentState == State.Jongkok)
+        {
+            currentState = State.Berdiri;
+            Console.WriteLine("Berdiri");
+        } else if ( currentState == State.Berdiri) 
+        {
+            currentState = State.Terbang;
+            Console.WriteLine("Terbang");
+        }
+        
+    }
+
+    public void TombolS()
+    {
+        if (currentState == State.Jongkok)
+        {
+            currentState = State.Tengkurap;
+            Console.WriteLine("Tengkurap");
+        }
+        else if (currentState == State.Berdiri)
+        {
+            currentState = State.Jongkok;
+            Console.WriteLine("Jongkok");
+        }
+        else if (currentState == State.Terbang)
+        {
+            currentState = State.Berdiri;
+            Console.WriteLine("Berdiri");
+        }
+    }
+    public void TombolX()
+    {
+        if (currentState == State.Terbang)
+        {
+            currentState= State.Jongkok;
+            Console.WriteLine("Jongkok");
+        }
+    }
+}
+
 class Program
 {
     static void Main(string[] args)
@@ -49,5 +106,27 @@ class Program
         Console.WriteLine("Kode Durian : " + KodeBuah.getKodeBuah(KodeBuah.Nama.Durian));
         Console.WriteLine("Kode Ceri : " + KodeBuah.getKodeBuah(KodeBuah.Nama.Ceri));
         Console.WriteLine("Kode Semangka : " + KodeBuah.getKodeBuah(KodeBuah.Nama.Semangka));
+        
+        String Gerak;
+        String Out = Console.ReadLine();
+        PosisiKarakterGame posisi = new PosisiKarakterGame();
+        Gerak = Console.ReadLine();
+        for (int i = 0; i < 20;  i++)
+        {
+            if (Gerak == "W" || Gerak == "w")
+            {
+                posisi.TombolW();
+                Console.WriteLine("Tombol arah atas ditekan");
+            } else if (Gerak == "S" || Gerak == "s")
+            {
+                posisi.TombolS();
+                Console.WriteLine("Tombol arah bawah ditekan");
+            } else if (Gerak == "X" || Gerak == "x")
+            {
+                posisi.TombolX();
+            }
+            Gerak = Console.ReadLine();
+            Console.WriteLine(posisi.currentState);
+        }
     }
 }
